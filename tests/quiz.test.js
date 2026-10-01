@@ -9,24 +9,22 @@ function choose(index = 0) {
   state.select(answerKeys[state.step], option);
 }
 
-test('all four initial situations reach diagnosis, belief and mini VSL', () => {
+test('all four initial situations reach diagnosis and mini VSL', () => {
   for (let situation = 0; situation < 4; situation++) {
     useQuizStore.getState().reset();
     choose(situation);
     for (let question = 1; question < 6; question++) choose();
     assert.equal(useQuizStore.getState().step, 6);
     assert.equal(Object.keys(useQuizStore.getState().answers).length, 6);
-    for (let step = 6; step < 9; step++) {
+    for (let step = 6; step < 8; step++) {
       const state = useQuizStore.getState();
       assert.equal(state.step, step);
       const screen = createQuizFlow(state.answers).screen(step);
       assert.ok(screen.title);
       if (step === 6) assert.ok(screen.body.includes('<strong>'));
-      if (step === 8) assert.equal(screen.videoId, 1231891598);
+      if (step === 7) assert.equal(screen.videoId, 1231891598);
       state.next();
     }
-    assert.equal(useQuizStore.getState().step, 8);
-    useQuizStore.getState().back();
     assert.equal(useQuizStore.getState().step, 7);
   }
 });

@@ -14,7 +14,7 @@ export const useQuizStore = create((set) => ({
     const answers = Object.fromEntries(answerKeys.slice(0, state.step).map((name) => [name, state.answers[name]]));
     return { answers: { ...answers, [key]: option }, step: state.step + 1, history: [...state.history, snapshot(state)] };
   }),
-  next: () => set((state) => state.step >= 6 && state.step < 8 ? {
+  next: () => set((state) => state.step === 6 ? {
     step: state.step + 1, history: [...state.history, snapshot(state)],
   } : state),
   back: () => set((state) => state.history.length ? {

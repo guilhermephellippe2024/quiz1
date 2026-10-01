@@ -59,7 +59,25 @@ strong { font-weight: 700; }
 @keyframes step-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes pulse { from { opacity: .3; } to { opacity: 1; } }
 @media (hover: hover) { .answer-option:hover { background: #fcf5f7; border-color: #84394d; box-shadow: 0 0 0 1px #84394d; } .primary-button:hover { background: #6b293b; } .back-button:hover { color: #84394d; text-decoration: underline; } }
-@media (max-width: 560px) { .card-top { padding: 22px 20px 0; } .card-content { padding: 26px 20px; } .answer-option { padding: 18px 16px; gap: 12px; font-size: 20px; } .answer-arrow { display: none; } .sub { font-size: 20px; } .initial-question { font-size: 25px; } .copy-box, .offer { padding: 20px; font-size: 20px; } .actions { flex-wrap: wrap; gap: 14px; } .primary-button { width: 100%; } .actions .primary-button { order: -1; } .mechanism-item { font-size: 20px; gap: 12px; } }
+@media (max-width: 560px) {
+  .page { padding: 10px 10px 18px; }
+  .quiz-card { border-radius: 20px; }
+  .card-top { padding: 16px 16px 0; }
+  .card-content { padding: 18px 16px 20px; }
+  h1 { font-size: 25px; line-height: 1.16; }
+  .sub { margin-top: 10px; font-size: 16px; line-height: 1.42; }
+  .initial-question { margin-top: 17px; font-size: 21px; line-height: 1.22; }
+  .options { gap: 8px; margin-top: 16px; }
+  .answer-option { min-height: 56px; padding: 12px; gap: 10px; border-radius: 13px; font-size: 16px; line-height: 1.28; }
+  .answer-dot { flex-basis: 17px; height: 17px; }
+  .answer-arrow { display: none; }
+  .copy-box, .offer { margin-top: 16px; padding: 16px; font-size: 17px; line-height: 1.5; }
+  .typing-toolbar { margin-top: 14px; font-size: 15px; }
+  .actions { margin-top: 18px; }
+  .primary-button { width: 100%; padding: 14px 18px; font-size: 17px; }
+  .mechanism { gap: 12px; margin-top: 18px; }
+  .mechanism-item { gap: 10px; padding-bottom: 14px; font-size: 17px; line-height: 1.45; }
+}
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 
 .vsl-frame { position: relative; width: 100%; overflow: hidden; border-radius: 16px; background: #171313; }

@@ -3,7 +3,7 @@
 export const answerKeys = ["situation", "desire", "problem", "attempt", "reason", "help"];
 
 export function createQuizFlow(state) {
-const steps=["Sua situação","O que você quer","O que te trava","O que você já tentou","Por que ainda não deu certo","O que mais te ajudaria","Seu resultado","Uma coisa importante","Um jeito mais simples","Como o método funciona"];
+const steps=["Sua situação","O que você quer","O que te trava","O que você já tentou","Por que ainda não deu certo","O que mais te ajudaria","Seu resultado","Vídeo"];
 const situations=[{id:"start",text:"Quero começar a vender geleias, mas não sei por onde começar"},{id:"failed",text:"Já tentei vender outras coisas antes e não deu certo"},{id:"made",text:"Já fiz geleias, mas não sei quanto cobrar"},{id:"selling",text:"Já vendo e quero organizar melhor meus custos e lucros"}];
 const desires=[{id:"bills",text:"Quero ajudar nas contas de casa"},{id:"ownmoney",text:"Quero ter meu próprio dinheiro"},{id:"family",text:"Quero aumentar a renda da minha família"},{id:"workhome",text:"Quero ganhar dinheiro trabalhando de casa"}];
 function desireQuestion(){
@@ -232,49 +232,6 @@ function diagnosisCopy(){
   };
 }
 
-function beliefCopy() {
-  const objections = {
-    production: {
-      title: "Você pode começar com uma receita de cada vez.",
-      box: "Receitas testadas e medidas claras ajudam a reduzir as dúvidas no preparo. <strong>Comece com uma pequena quantidade e ganhe prática.</strong>",
-    },
-    pricing: {
-      title: "Você não precisa adivinhar quanto cobrar.",
-      box: "Informe seus gastos para calcular o custo de cada pote. <strong>Com esses números, fica mais fácil definir seu preço.</strong>",
-    },
-    clients: {
-      title: isSelling() ? "Você pode organizar a busca por novos clientes." : "Você não precisa começar com muitos clientes.",
-      box: isSelling()
-        ? "O manual traz orientações para apresentar suas geleias e divulgar. <strong>Escolha uma ação, coloque em prática e acompanhe a resposta.</strong>"
-        : "Você pode começar oferecendo para pessoas próximas. <strong>O manual orienta como apresentar suas geleias e buscar as primeiras vendas.</strong>",
-    },
-    risk: {
-      title: "Você pode começar aos poucos.",
-      box: "Calcule os custos antes de produzir e teste uma pequena quantidade. <strong>Assim, você limita o investimento inicial e observa a procura.</strong>",
-    },
-    confidence: {
-      title: "Uma tentativa anterior não define a próxima.",
-      box: "Desta vez, você pode calcular os custos e seguir uma sequência de passos. <strong>Comece pequeno e avalie antes de investir mais.</strong>",
-    },
-    direction: {
-      title: "Você não precisa descobrir tudo de uma vez.",
-      box: "Primeiro, escolha uma receita. Depois, calcule o custo e prepare sua oferta. <strong>Um passo de cada vez, com tudo organizado.</strong>",
-    },
-    profit: {
-      title: "Vender e saber quanto sobra são coisas diferentes.",
-      box: "Reúna os custos de cada pote e registre suas vendas. <strong>Isso ajuda você a entender o resultado e avaliar seus preços.</strong>",
-    },
-    organization: {
-      title: "Suas vendas não precisam ficar espalhadas em papéis.",
-      box: "Reúna receitas, custos e vendas no mesmo aplicativo. <strong>Fica mais fácil consultar seus números e acompanhar o que está acontecendo.</strong>",
-    },
-    time: {
-      title: "Você pode simplificar as contas do dia a dia.",
-      box: "Use a calculadora de custos e registre as vendas em um só lugar. <strong>Menos anotações espalhadas para conferir depois.</strong>",
-    },
-  };
-  return { ...(objections[state.problem?.id] || objections.direction), button: "Quero ver um jeito mais simples" };
-}
 
   function screen(step) {
     const stage = steps[step];
@@ -289,8 +246,7 @@ function beliefCopy() {
     if (step === 4) { const d = reasonQ(); return { stage, title: d.q, sub: "Escolha a opção que mais parece com o que aconteceu com você.", options: d.options }; }
     if (step === 5) { const d = helpQ(); return { stage, title: d.q, sub: step5Sub(), options: d.options }; }
     if (step === 6) return { stage, ...diagnosisCopy(), button: "Isso faz sentido para mim" };
-    if (step === 7) return { stage, ...beliefCopy() };
-    if (step === 8) return { stage: "Vídeo", title: "Conheça o Método Geleias que Vendem", videoId: 1231891598 };
+    if (step === 7) return { stage: "Vídeo", title: "Conheça o Método Geleias que Vendem", videoId: 1231891598 };
     throw new RangeError("Etapa inválida do quiz");
   }
   return { screen };
