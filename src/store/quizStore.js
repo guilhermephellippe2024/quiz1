@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { answerKeys, createQuizFlow } from "../data/quizFlow.js";
 
-const initialState = () => ({ step: 0, answers: {}, history: [] });
+const initialState = () => ({ step: 0, answers: {}, history: [], attemptGeneration: 0 });
 const snapshot = ({ step, answers }) => ({ step, answers: { ...answers } });
 
 export const useQuizStore = create((set) => ({
@@ -20,5 +20,5 @@ export const useQuizStore = create((set) => ({
   back: () => set((state) => state.history.length ? {
     ...state.history[state.history.length - 1], history: state.history.slice(0, -1),
   } : state),
-  reset: () => set(initialState()),
+  reset: () => set((state) => ({ ...initialState(), attemptGeneration: state.attemptGeneration + 1 })),
 }));
