@@ -2,10 +2,13 @@ import { useRef } from "react";
 import MidnightCountdown from "./MidnightCountdown";
 
 const benefits = [
+  "Acesso imediato ao Método Geleia que Vende",
   "Receitas testadas",
-  "Calculadora de custos",
+  "Novas receitas toda semana",
   "Gerenciador de vendas",
-  "Manual para realizar as primeiras vendas",
+  "Descubra quanto custa cada pote",
+  "Descubra quanto cobrar",
+  "Passo a passo para conseguir suas primeiras vendas",
 ];
 
 export default function SubscriptionOffers() {
@@ -33,8 +36,9 @@ export default function SubscriptionOffers() {
           </div>
           <p className="billing-note">Cobrança mensal de R$ 14,90.</p>
           <ul>{benefits.map((benefit) => <li key={benefit}><span aria-hidden="true">✓</span>{benefit}</li>)}</ul>
-          <p className="subscription-guarantee">7 dias de garantia</p>
-          <a className="primary-button checkout-button" href="https://pay.cakto.com.br/frq59gq_1135591">Quero assinar por R$ 14,90/mês</a>
+          <p className="subscription-guarantee">🛡️ Teste por 7 dias</p>
+          <p className="mx-6">Se não gostar, é só pedir seu reembolso.</p>
+          <a className="primary-button checkout-button" href="https://pay.cakto.com.br/frq59gq_1135591">Quero começar a vender</a>
         </article>
       </section>
     </div>

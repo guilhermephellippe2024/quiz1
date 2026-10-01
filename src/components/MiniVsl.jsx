@@ -37,13 +37,13 @@ export default function MiniVsl() {
       if (active) setTimeline((current) => ({ ...current, duration: dimensions[2] }));
       if (active && dimensions[0] && dimensions[1]) setRatio(dimensions[0] / dimensions[1]);
       // If autoplay is blocked, the sound button remains a manual start action.
-      await instance.play().catch(() => {});
+      await instance.play().catch(() => { });
     }).catch(failed);
     return () => {
       active = false;
       window.clearTimeout(timeout);
       player.current = null;
-      instance.destroy().catch(() => {});
+      instance.destroy().catch(() => { });
     };
   }, []);
 
@@ -56,7 +56,7 @@ export default function MiniVsl() {
     try {
       await instance.setMuted(false);
       // Some mobile devices leave volume control to the physical buttons.
-      await instance.setVolume(1).catch(() => {});
+      await instance.setVolume(1).catch(() => { });
       // Restart so the visitor hears the narration from its first sentence.
       await instance.setCurrentTime(0);
       await instance.play();
@@ -76,7 +76,11 @@ export default function MiniVsl() {
       <div className="vsl-frame" style={{ aspectRatio: ratio }}>
         <iframe ref={host} className="vsl-player" src="https://player.vimeo.com/video/1231891598?autoplay=1&muted=1&controls=0&loop=0&playsinline=1&title=0&byline=0&portrait=0&badge=0&dnt=1" title="Mini-VSL — Método Geleias que Vendem" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowFullScreen />
         {!ready && !error && <p className="vsl-message" role="status">Carregando vídeo…</p>}
-        {ready && !error && (!soundEnabled || ended) && <button type="button" className="vsl-sound primary-button" onClick={playWithSound}>{ended ? "Assistir novamente" : "Toque para assistir com som"}</button>}
+        {ready && !error && (!soundEnabled || ended) &&
+          <button type="button" className="vsl-sound primary-button" onClick={playWithSound}>
+            {ended ? "Assistir novamente" : "Ativar som 🔊"}
+          </button>
+        }
       </div>
       <div className="video-progress">
         <div className="progress-track" role="progressbar" aria-label="Progresso do vídeo" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress)}><div className="progress-fill" style={{ width: `${progress}%` }} /></div>

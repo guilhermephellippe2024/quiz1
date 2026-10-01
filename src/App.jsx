@@ -29,11 +29,24 @@ export default function App() {
     <main className="page mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-10">
       <QuizCard>
         <div className="card-top">
-          <div role="progressbar" aria-label="Progresso do quiz" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progressByStep[step]} className="progress-track"><div className="progress-fill" style={{ width: `${progressByStep[step]}%` }} /></div>
+          <div
+            role="progressbar"
+            aria-label="Progresso do quiz"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={progressByStep[step]}
+            className="progress-track"
+          >
+            <div
+              className="progress-fill"
+              style={{ width: `${progressByStep[step]}%` }}
+            />
+          </div>
         </div>
         <ResultWrapper>
           <div className="card-content step-enter" key={step}>
-            {step !== 6 && <h1 ref={heading} tabIndex={-1} className={`focus-heading ${step === 7 ? "sr-only" : ""}`}>{screen.title}</h1>}
+            {step !== 6 && <h1 ref={heading} tabIndex={-1} className={`focus-heading text-center ${step === 7 ? "sr-only" : ""}`}>{screen.title}</h1>}
+
             {step < 6 && <>
               <p className="sub">{screen.sub}</p>
               {screen.question && <h2 id="question" className="initial-question">{screen.question}</h2>}
