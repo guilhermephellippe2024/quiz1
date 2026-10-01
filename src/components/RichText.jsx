@@ -1,13 +1,15 @@
 // The original copy uses only <strong> and <br>. Render those as React nodes,
 // including partially typed emphasis, without injecting or truncating HTML.
-export function plainText(html) {
-  return html.replace(/<br\s*\/?>(?:\s*)/gi, "\n").replace(/<\/?strong>/gi, "");
+export function plainText(html = "") {
+  const source = typeof html === "string" ? html : "";
+  return source.replace(/<br\s*\/?>(?:\s*)/gi, "\n").replace(/<\/?strong>/gi, "");
 }
 
-export default function RichText({ html, limit = Infinity }) {
+export default function RichText({ html = "", limit = Infinity }) {
+  const source = typeof html === "string" ? html : "";
   let remaining = limit;
   let strong = false;
-  return html.split(/(<\/?strong>|<br\s*\/?>)/gi).map((token, index) => {
+  return source.split(/(<\/?strong>|<br\s*\/?>)/gi).map((token, index) => {
     if (/^<strong>$/i.test(token)) { strong = true; return null; }
     if (/^<\/strong>$/i.test(token)) { strong = false; return null; }
     if (/^<br/i.test(token)) {

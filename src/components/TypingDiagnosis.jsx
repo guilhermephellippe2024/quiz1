@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import RichText, { plainText } from "./RichText";
 
-export default function TypingDiagnosis({ html, typingLabel = "Digitando seu resultado…", completeLabel = "Seu resultado" }) {
+export default function TypingDiagnosis({ html, title, headingRef, typingLabel = "Digitando seu resultado…", completeLabel = "Seu resultado" }) {
   const total = plainText(html).length;
   const [count, setCount] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches ? total : 0);
   const done = count >= total;
@@ -22,6 +22,7 @@ export default function TypingDiagnosis({ html, typingLabel = "Digitando seu res
         {!done && <button type="button" className="skip-button" onClick={() => setCount(total)}>Mostrar tudo</button>}
       </div>
       <div className="copy-box">
+        {title && <h1 ref={headingRef} tabIndex={-1} className="focus-heading diagnosis-title">{title}</h1>}
         <div className="sr-only"><RichText html={html} /></div>
         <div className="typing-content" aria-hidden="true">
           <div className="typing-measure"><RichText html={html} /></div>

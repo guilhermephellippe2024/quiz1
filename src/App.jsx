@@ -33,7 +33,7 @@ export default function App() {
         </div>
         <ResultWrapper>
           <div className="card-content step-enter" key={step}>
-            <h1 ref={heading} tabIndex={-1} className={`focus-heading ${step === 7 ? "sr-only" : ""}`}>{screen.title}</h1>
+            {step !== 6 && <h1 ref={heading} tabIndex={-1} className={`focus-heading ${step === 7 ? "sr-only" : ""}`}>{screen.title}</h1>}
             {step < 6 && <>
               <p className="sub">{screen.sub}</p>
               {screen.question && <h2 id="question" className="initial-question">{screen.question}</h2>}
@@ -41,7 +41,7 @@ export default function App() {
                 {screen.options.map((option, index) => <OptionButton key={option.id} index={index} onClick={() => select(answerKeys[step], option)}>{option.text}</OptionButton>)}
               </div>
             </>}
-            {step === 6 && <><TypingDiagnosis html={screen.body} /><p className="sub">{screen.sub}</p></>}
+            {step === 6 && <><TypingDiagnosis title={screen.title} headingRef={heading} html={screen.body} /><p className="sub">{screen.sub}</p></>}
             {step === 7 && <MiniVsl />}
             {screen.button && <nav className="actions" aria-label="Continuar">
               <button type="button" onClick={next} className="primary-button">{screen.button}<span aria-hidden="true"> →</span></button>

@@ -19,7 +19,7 @@ h1 { font-size: clamp(28px, 4.5vw, 38px); line-height: 1.22; font-weight: 700; l
 .answer-arrow { color: #926d72; font-size: 22px; }
 .answer-option:active { background: #f6e9ed; border-color: #84394d; }
 .answer-option:active .answer-dot { background: #84394d; box-shadow: inset 0 0 0 4px #fff; }
-.actions { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-top: 30px; }
+.actions { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 30px; }
 .primary-button { border-radius: 14px; padding: 18px 24px; background: #84394d; color: white; font-size: 20px; font-weight: 650; line-height: 1.4; }
 .back-button { color: #70544f; padding: 12px 4px; font-size: 19px; border-radius: 6px; min-height: 48px; }
 button:focus-visible { outline: 3px solid #84394d; outline-offset: 4px; }
@@ -32,6 +32,7 @@ strong { font-weight: 700; }
 .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #84394d; }
 .is-typing { animation: pulse 1s ease-in-out infinite alternate; }
 .skip-button { color: #7c2e40; text-decoration: underline; text-underline-offset: 4px; min-height: 44px; border-radius: 5px; padding: 4px; }
+.diagnosis-title { margin-bottom: 20px; }
 .diagnosis .copy-box { margin-top: 12px; }
 .typing-content { display: grid; }
 .typing-measure, .typing-overlay { grid-area: 1 / 1; }
