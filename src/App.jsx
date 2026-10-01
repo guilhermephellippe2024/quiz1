@@ -8,10 +8,10 @@ import { useQuizStore } from "./store/quizStore";
 import { answerKeys, createQuizFlow } from "./data/quizFlow";
 
 // Larger initial advances, followed by smaller increments near the end.
-const progressByStep = [0, 25, 45, 60, 72, 82, 90, 95, 100];
+const progressByStep = [0, 25, 45, 60, 72, 82, 90, 100];
 
 export default function App() {
-  const { step, answers, history, select, next, back } = useQuizStore();
+  const { step, answers, select, next } = useQuizStore();
   const screen = createQuizFlow(answers).screen(step);
   const ResultWrapper = step === 6 ? ResultLoading : Fragment;
   const heading = useRef(null);
@@ -33,7 +33,7 @@ export default function App() {
         </div>
         <ResultWrapper>
           <div className="card-content step-enter" key={step}>
-            <h1 ref={heading} tabIndex={-1} className={`focus-heading ${step === 8 ? "sr-only" : ""}`}>{screen.title}</h1>
+            <h1 ref={heading} tabIndex={-1} className={`focus-heading ${step === 7 ? "sr-only" : ""}`}>{screen.title}</h1>
             {step < 6 && <>
               <p className="sub">{screen.sub}</p>
               {screen.question && <h2 id="question" className="initial-question">{screen.question}</h2>}
@@ -42,10 +42,9 @@ export default function App() {
               </div>
             </>}
             {step === 6 && <><TypingDiagnosis html={screen.body} /><p className="sub">{screen.sub}</p></>}
-            {step === 7 && <TypingDiagnosis html={screen.box} typingLabel="Digitando…" completeLabel="Um passo possível para você" />}
-            {step === 8 && <MiniVsl />}
-            {history.length > 0 && step !== 8 && <nav className="actions" aria-label="Navegação do quiz">
-              {screen.button && <button type="button" onClick={next} className="primary-button">{screen.button}<span aria-hidden="true"> →</span></button>}
+            {step === 7 && <MiniVsl />}
+            {screen.button && <nav className="actions" aria-label="Continuar">
+              <button type="button" onClick={next} className="primary-button">{screen.button}<span aria-hidden="true"> →</span></button>
             </nav>}
           </div>
         </ResultWrapper>
