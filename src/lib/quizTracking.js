@@ -1,7 +1,7 @@
 import { supabase } from './supabase';
 import { answerKeys, createQuizFlow } from '../data/quizFlow';
 
-const STORAGE_KEY = 'geleias-quiz-attempt-v1';
+const STORAGE_KEY = 'geleias-quiz-attempt-v2';
 let memoryAttempt;
 function readAttempt() {
   if (memoryAttempt) return memoryAttempt;
@@ -18,18 +18,18 @@ function saveLocally(attempt) {
 
 export function restoreQuizAttempt(store) {
   const attempt = readAttempt();
-  if (!Number.isInteger(attempt.step) || attempt.step < 0 || attempt.step > 7) return;
+  if (!Number.isInteger(attempt.step) || attempt.step < 0 || attempt.step > answerKeys.length + 1) return;
   // Rebuild answers from canonical options; never inject stored arbitrary text into diagnosis HTML.
   const answers = {};
   const history = [];
-  for (let step = 0; step < Math.min(attempt.step, 6); step++) {
+  for (let step = 0; step < Math.min(attempt.step, answerKeys.length); step++) {
     const key = answerKeys[step];
     const option = createQuizFlow(answers).screen(step).options.find((item) => item.id === attempt.answers?.[key]?.id);
     if (!option) return;
     history.push({ step, answers: { ...answers } });
     answers[key] = option;
   }
-  if (attempt.step === 7) history.push({ step: 6, answers: { ...answers } });
+  if (attempt.step === answerKeys.length + 1) history.push({ step: answerKeys.length, answers: { ...answers } });
   store.setState({ step: attempt.step, answers, history });
 }
 
@@ -46,7 +46,7 @@ export function startQuizTracking(store) {
     const attempt = pending;
     pending = null;
     try {
-      const { error } = await supabase.rpc('save_quiz_progress', {
+      const { error } = await supabase.rpc('save_quiz_progress_v2', {
         p_id: attempt.id, p_token: attempt.token, p_answers: attempt.answers,
         p_step: attempt.step, p_revision: attempt.revision,
       }).abortSignal(AbortSignal.timeout(12000));

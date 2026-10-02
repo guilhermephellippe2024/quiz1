@@ -8,12 +8,12 @@ import { useQuizStore } from "./store/quizStore";
 import { answerKeys, createQuizFlow } from "./data/quizFlow";
 
 // Larger initial advances, followed by smaller increments near the end.
-const progressByStep = [0, 25, 45, 60, 72, 82, 90, 100];
+const progressByStep = [0, 25, 45, 60, 72, 82, 88, 93, 97, 100];
 
 export default function App() {
   const { step, answers, select, next } = useQuizStore();
   const screen = createQuizFlow(answers).screen(step);
-  const ResultWrapper = step === 6 ? ResultLoading : Fragment;
+  const ResultWrapper = step === answerKeys.length ? ResultLoading : Fragment;
   const heading = useRef(null);
   const previousStep = useRef(step);
 
@@ -45,17 +45,17 @@ export default function App() {
         </div>
         <ResultWrapper>
           <div className="card-content step-enter" key={step}>
-            {step !== 6 && <h1 ref={heading} tabIndex={-1} className={`focus-heading text-center ${step === 7 ? "sr-only" : ""}`}>{screen.title}</h1>}
+            {step !== answerKeys.length && <h1 ref={heading} tabIndex={-1} className={`focus-heading text-center ${step === answerKeys.length + 1 ? "sr-only" : ""} ${step === 0 ? "intro-headline" : ""}`}>{screen.title}</h1>}
 
-            {step < 6 && <>
-              <p className="sub">{screen.sub}</p>
+            {step < answerKeys.length && <>
+              {screen.sub && <p className="sub">{screen.sub}</p>}
               {screen.question && <h2 id="question" className="initial-question">{screen.question}</h2>}
               <div className="options" role="group" aria-label={screen.question || screen.title}>
                 {screen.options.map((option, index) => <OptionButton key={option.id} index={index} onClick={() => select(answerKeys[step], option)}>{option.text}</OptionButton>)}
               </div>
             </>}
-            {step === 6 && <><TypingDiagnosis title={screen.title} headingRef={heading} html={screen.body} /><p className="sub">{screen.sub}</p></>}
-            {step === 7 && <MiniVsl />}
+            {step === answerKeys.length && <><TypingDiagnosis title={screen.title} headingRef={heading} html={screen.body} />{screen.sub && <p className="sub">{screen.sub}</p>}</>}
+            {step === answerKeys.length + 1 && <MiniVsl />}
             {screen.button && <nav className="actions" aria-label="Continuar">
               <button type="button" onClick={next} className="primary-button">{screen.button}<span aria-hidden="true"> →</span></button>
             </nav>}

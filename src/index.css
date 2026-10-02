@@ -116,3 +116,6 @@ strong { font-weight: 700; }
 .video-progress { margin-top: 16px; }
 .video-progress-label { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; margin-bottom: 10px; font-size: 18px; color: #6c5e58; font-variant-numeric: tabular-nums; }
 .video-progress .progress-track { height: 8px; }
+
+/* Highlight the opening promise with the existing brand color. */
+.intro-headline { color: #84394d; }

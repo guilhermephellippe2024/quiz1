@@ -1,6 +1,6 @@
 // Content and branching migrated verbatim from quiz_metodo_geleias_que_vendem_v2.html.
 // Keep presentation concerns in components; these functions only resolve quiz content.
-export const answerKeys = ["situation", "desire", "problem", "attempt", "reason", "help"];
+export const answerKeys = ["experience", "age", "situation", "desire", "problem", "attempt", "reason", "help"];
 
 export function createQuizFlow(state) {
 const steps=["Sua situação","O que você quer","O que te trava","O que você já tentou","Por que ainda não deu certo","O que mais te ajudaria","Seu resultado","Vídeo"];
@@ -234,11 +234,31 @@ function diagnosisCopy(){
 
 
   function screen(step) {
+    if (step === 0) return {
+      stage: "Sua experiência",
+      title: "Descubra o que falta para você começar a vender suas primeiras geleias",
+      sub: "Responda algumas perguntas rápidas. Leva menos de 1 minuto.",
+      question: "Você já fez geleia caseira alguma vez?",
+      options: [
+        { id: "often", text: "Faço sempre" },
+        { id: "once", text: "Fiz uma vez" },
+        { id: "beginner", text: "Quero começar" },
+      ],
+    };
+    if (step === 1) return {
+      stage: "Sua idade",
+      title: "Só para entendermos melhor seu momento: qual é sua idade?",
+      options: [
+        { id: "18-25", text: "18 a 25" },
+        { id: "26-35", text: "26 a 35" },
+        { id: "36-55", text: "36 a 55" },
+        { id: "56-plus", text: "56+" },
+      ],
+    };
+    step -= 2;
     const stage = steps[step];
     if (step === 0) return {
-      stage, title: "Descubra seu próximo passo para começar a vender geleias caseiras",
-      sub: "Responda algumas perguntas rápidas para eu entender sua situação e mostrar um caminho mais simples para você começar.",
-      question: "Qual destas situações mais parece com a sua hoje?", options: situations,
+      stage, title: "Qual destas situações mais parece com a sua hoje?", options: situations,
     };
     if (step === 1) { const d = desireQuestion(); return { stage, title: d.q, sub: d.sub, options: d.options }; }
     if (step === 2) return { stage, title: "O que mais te impede de dar o próximo passo hoje?", sub: "Pense no que mais te trava quando você imagina começar ou melhorar suas vendas.", options: problems[state.situation.id] };
